@@ -17,4 +17,4 @@ Below are some of the functionality and use cases of our custom `_printf()`
 
 ***
 AUTHORS: [Mk-0-wan](https://github.com/Mk-0-wan)
-       : []
+       : [SplugS](https://github.com/SPlugS)
