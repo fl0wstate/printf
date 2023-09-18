@@ -8,6 +8,7 @@
  */
 int _percent_arg(va_list *ap)
 {
+	(void)ap;
 	return (write(STDOUT_FILENO, "%", 1));
 }
 /**
