@@ -1,6 +1,5 @@
 #include "main.h"
 #include <unistd.h>
-
 /**
  * _percent_arg - handling the case of percent args
  * @ap: list of arguments passed
@@ -16,13 +15,12 @@ int _percent_arg(va_list *ap)
  * @num: digits passed
  * Return: number of digits present
  */
-int digit_counter(int num)
+unsigned int digit_counter(int num)
 {
-	int temp = 0, count = 0;
+	unsigned int temp = 0, count = 0;
 
 	temp = num;
 	count = (temp == 0) ? 1 : 0;
-
 	while (temp != 0)
 	{
 		temp /= 10;
@@ -39,25 +37,24 @@ int _printf(const char *format, ...)
 {
 	va_list ap;
 	int index_arr_no, i = 0;
-	ssize_t count = 0;
+	size_t count = 0;
 	specifiers_x formats[] = {
-		{'c', _char_arg},
-		{'s', _string_arg},
-		{'%', _percent_arg},
-		{'d', _digit_arg},
-		{'i', _digit_arg},
+		{'c', _char_arg}, {'s', _string_arg},
+		{'%', _percent_arg}, {'d', _digit_arg},
+		{'i', _digit_arg}, {'b', _binary_arg},
+		{'o', _octal_arg}, {'x', _low_hex_arg},
+		{'X', _low_hex_arg}, {'r', _rot13_arg},
 		{0, NULL}
 	};
-
 	if (!format)
-		return (1);
+		return (-1);
 	va_start(ap, format);
 	while (format && format[i])
 	{
 		if (format[i] == '%')
 		{
-			index_arr_no = 0;
 			i++;
+			index_arr_no = 0;
 			while (formats[index_arr_no].form_t)
 			{
 				if (format[i] == formats[index_arr_no].form_t)
@@ -67,7 +64,7 @@ int _printf(const char *format, ...)
 				}
 				index_arr_no++;
 			}
-			if (!formats[index_arr_no].form_t)
+			if (formats[index_arr_no].form_t == 0)
 				count += write(STDOUT_FILENO, &format[i], 1);
 		}
 		else
@@ -77,4 +74,3 @@ int _printf(const char *format, ...)
 	va_end(ap);
 	return (count);
 }
-/* added some helper function but still room for other two function */
