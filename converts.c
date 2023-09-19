@@ -142,7 +142,7 @@ int _rot13_arg(va_list *ap)
 
 	if (!s)
 	{
-		return (0);
+		return (write(STDOUT_FILENO, "(null)", 1));
 	}
 	while (s[i] != '\0')
 	{
