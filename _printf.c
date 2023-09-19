@@ -8,7 +8,7 @@
 int _percent_arg(va_list *ap)
 {
 	(void)ap;
-	return (write(STDOUT_FILENO, "%%", 1));
+	return (write(STDOUT_FILENO, "%", 1));
 }
 /**
  * digit_counter - counts the number of digits present
@@ -43,7 +43,7 @@ int _printf(const char *format, ...)
 		{'%', _percent_arg}, {'d', _digit_arg},
 		{'i', _digit_arg}, {'b', _binary_arg},
 		{'o', _octal_arg}, {'x', _low_hex_arg},
-		{'X', _low_hex_arg}, {'r', _rot13_arg},
+		{'X', _low_hex_arg}, {'R', _rot13_arg},
 		{0, NULL}
 	};
 	if (!format)
