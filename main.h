@@ -26,10 +26,18 @@ typedef struct format_specifiers
 
 /* Function prototypes */
 int _printf(const char *format, ...);
+unsigned int digit_counter(int num);
+int _upper_hex_arg(va_list *ap);
+int _low_hex_arg(va_list *ap);
+int _binary_arg(va_list *ap);
 int _string_arg(va_list *ap);
-int _char_arg(va_list *ap);
 int _digit_arg(va_list *ap);
-int digit_counter(int num);
+int _octal_arg(va_list *ap);
+int _rot13_arg(va_list *ap);
+unsigned long int get_converters_val(long int n);
+unsigned long int write_buffer(char *s);
+char *creat_heap_mem(int num);
+int _char_arg(va_list *ap);
 int _strlen(char *s);
 void _puts(char *s);
 int _atoi(char *s);
