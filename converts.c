@@ -93,8 +93,8 @@ int _octal_arg(va_list *ap)
 
 	digit = va_arg(*ap, unsigned long int);
 
-	if (digit == 0)
-		return (0);
+	if (decimal == 0)
+		return (write(STDOUT_FILENO, "0", 1));
 	while (digit > 0)
 	{
 		rem = digit % 8;
@@ -116,8 +116,8 @@ int _binary_arg(va_list *ap)
 	long int pos = 1, bin = 0, rem = 0, num = 0;
 
 	num = va_arg(*ap, long int);
-	if (num == 0)
-		return (0);
+	if (decimal == 0)
+		return (write(STDOUT_FILENO, "0", 1));
 	while (num > 0)
 	{
 		rem = num % 2;
