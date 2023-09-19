@@ -15,7 +15,6 @@ int _strlen(char *s)
 	}
 	return (len);
 }
-
 /**
  * _puts - output the strings to the stdio
  * @s: pointer to a string of chars
@@ -41,11 +40,11 @@ int _string_arg(va_list *ap)
 	char *s;
 
 	s = va_arg(*ap, char *);
-	if (!s || *s == '\0')
+	if (!s)
 	{
 		s = "(null)";
 	}
-	return (write(STDOUT_FILENO, s, _strlen(s)));
+	return ((unsigned int)(write(STDOUT_FILENO, s, _strlen(s))));
 }
 /**
  * _char_arg - prints a char format type
@@ -57,9 +56,8 @@ int _char_arg(va_list *ap)
 	char x;
 
 	x = va_arg(*ap, int);
-	return (write(STDOUT_FILENO, &x, 1));
+	return ((unsigned int)(write(STDOUT_FILENO, &x, 1)));
 }
-
 /**
  * _digit_arg - prints a digits format type
  * @ap: list of indefinite arguments number
@@ -72,7 +70,6 @@ int _digit_arg(va_list *ap)
 	char *heap_no;
 
 	num = va_arg(*ap, int);
-
 	if (num < 0)
 	{/* set flag */
 		negative_no = true;
@@ -80,7 +77,7 @@ int _digit_arg(va_list *ap)
 	}
 	digits = digit_counter(num);
 	/* create space to store it */
-	heap_no = malloc(sizeof(char) * (digits + 1));
+	heap_no = malloc(sizeof(char) * (digits + (negative_no ? 1 : 0) + 1));
 	if (!heap_no)
 	{
 		_puts("Memory allocation failed");
@@ -105,4 +102,3 @@ int _digit_arg(va_list *ap)
 	free(heap_no);
 	return (n_bytes);
 }
-/* EOF - reached the maximum number of function to store in one file */
