@@ -1,34 +1,6 @@
 #include "main.h"
 #include <unistd.h>
-/**
- * _unsigned_args - return an absolute value given
- * @ap: list of indefinite number of arguments
- * Return: number of bytes written
- */
-int _unsigned_args(va_list *ap)
-{
-	long int digit = 0;
-	unsigned long int copy;
-	unsigned int unintVal;
 
-	digit = va_arg(*ap, long int);
-
-	if (digit == 0)
-		return (write(1, "0", 1));
-
-	digit = _abs(digit);
-
-	copy = (unsigned long int)digit;
-	if (_isUINT(copy))
-	{
-		unintVal = (unsigned int)copy;
-		return (get_val_UINT(unintVal));
-	}
-	else
-	{
-		return (get_val_ULINT(copy));
-	}
-}
 /**
  * get_converters_val - return the value of converters
  * @n: integers
@@ -83,4 +55,54 @@ char *create_special_heap(int num, bool sign)
 		return (0);
 	}
 	return (s);
+}
+
+/**
+ * digit_long_counter - counts the number of digits present in
+ * a long int
+ * @num: digits passed
+ * Return: number of digits present
+ */
+unsigned long int digit_long_counter(unsigned long int num)
+{
+	unsigned long int temp = 0, count = 0;
+
+	temp = num;
+	count = (temp == 0) ? 1 : 0;
+	while (temp != 0)
+	{
+		temp /= 10;
+		count++;
+	}
+	return (count);
+}
+
+/**
+ * _puts - output the strings to the stdio
+ * @s: pointer to a string of chars
+ * Return: void
+ */
+void _puts(char *s)
+{
+	int i = 0;
+
+	for (; s[i] != '\0'; i++)
+	{
+		write(STDOUT_FILENO, &s[i], 1);
+	}
+	write(STDOUT_FILENO, "\n", 1);
+}
+
+/**
+ * _strlen - get the length of a string
+ * @s: pointer to a string of chars
+ * Return: length of the string
+ */
+int _strlen(char *s)
+{
+	int len = 0;
+
+	while (s[len])
+		len++;
+	return (len);
 }

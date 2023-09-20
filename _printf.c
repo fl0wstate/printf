@@ -1,33 +1,6 @@
 #include "main.h"
 #include <unistd.h>
-/**
- * _percent_arg - handling the case of percent args
- * @ap: list of arguments passed
- * Return: number of written bytes
- */
-int _percent_arg(va_list *ap)
-{
-	(void)ap;
-	return (write(STDOUT_FILENO, "%", 1));
-}
-/**
- * digit_counter - counts the number of digits present
- * @num: digits passed
- * Return: number of digits present
- */
-unsigned int digit_counter(int num)
-{
-	unsigned int temp = 0, count = 0;
 
-	temp = num;
-	count = (temp == 0) ? 1 : 0;
-	while (temp != 0)
-	{
-		temp /= 10;
-		count++;
-	}
-	return (count);
-}
 /**
  * _printf - simple replica of printf project.
  * @format: type of format specifier.
@@ -45,7 +18,7 @@ int _printf(const char *format, ...)
 		{'o', _octal_arg}, {'x', _low_hex_arg},
 		{'X', _upper_hex_arg}, {'R', _rot13_arg},
 		{'u', _unsigned_args}, {'r', _reverse_arg},
-		{0, NULL}
+		{'p', _pointer_hex_arg}, {0, NULL}
 	};
 	if (!format)
 		return (-1);
@@ -76,21 +49,6 @@ int _printf(const char *format, ...)
 	return (count);
 }
 
-/**
- * _abs - Entry point
- *
- * @num: holding the int value to be converted into an absolute value
- *
- * Return: void just returns the absolute value of the param passed
- */
-unsigned long int _abs(long int num)
-{
-	if (num < 0)
-	{
-		num *= -1;
-	}
-	return (num);
-}
 
 /**
  * _reverse_arg - simple function that reverses a string
@@ -122,4 +80,48 @@ int _reverse_arg(va_list *ap)
 	result = write_buffer(str);
 	free(str);
 	return (result);
+}
+
+/**
+ * digit_counter - counts the number of digits present
+ * @num: digits passed
+ * Return: number of digits present
+ */
+unsigned int digit_counter(int num)
+{
+	unsigned int temp = 0, count = 0;
+
+	temp = num;
+	count = (temp == 0) ? 1 : 0;
+	while (temp != 0)
+	{
+		temp /= 10;
+		count++;
+	}
+	return (count);
+}
+
+/**
+ * _abs - Entry point
+ * @num: holding the int value to be converted into an absolute value
+ * Return: void just returns the absolute value of the param passed
+ */
+unsigned long int _abs(long int num)
+{
+	if (num < 0)
+	{
+		num *= -1;
+	}
+	return (num);
+}
+
+/**
+ * _percent_arg - handling the case of percent args
+ * @ap: list of arguments passed
+ * Return: number of written bytes
+ */
+int _percent_arg(va_list *ap)
+{
+	(void)ap;
+	return (write(STDOUT_FILENO, "%", 1));
 }

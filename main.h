@@ -25,19 +25,22 @@ typedef struct format_specifiers
 } specifiers_x;
 
 /* Function prototypes */
+unsigned long int digit_long_counter(unsigned long int num);
 unsigned long int get_converters_val(unsigned long int n);
 unsigned long int get_val_ULINT(unsigned long int n);
 char *create_special_heap(int num, bool sign);
+char *creat_heap_mem(unsigned long int num);
 unsigned int get_val_UINT(unsigned int n);
 int _printf(const char *format, ...);
 unsigned long int _abs(long int num);
 unsigned int digit_counter(int num);
 bool _isUINT(unsigned long int num);
+int _pointer_hex_arg(va_list *ap);
 int _upper_hex_arg(va_list *ap);
 int _unsigned_args(va_list *ap);
+int _percent_arg(va_list *ap);
 int _low_hex_arg(va_list *ap);
 int _reverse_arg(va_list *ap);
-char *creat_heap_mem(int num);
 int _binary_arg(va_list *ap);
 int _string_arg(va_list *ap);
 int _digit_arg(va_list *ap);
@@ -47,7 +50,5 @@ int _char_arg(va_list *ap);
 int write_buffer(char *s);
 int _strlen(char *s);
 void _puts(char *s);
-int _atoi(char *s);
 
-/* Simple precise header file all the function mentioned here correlate */
 #endif
