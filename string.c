@@ -70,6 +70,8 @@ int _digit_arg(va_list *ap)
 	char *heap_no;
 
 	num = va_arg(*ap, int);
+	if (num == 0)
+		return ((unsigned int)(write(STDOUT_FILENO, "0", 1)));
 	if (num < 0)
 	{/* set flag */
 		negative_no = true;

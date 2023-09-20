@@ -43,7 +43,8 @@ int _printf(const char *format, ...)
 		{'%', _percent_arg}, {'d', _digit_arg},
 		{'i', _digit_arg}, {'b', _binary_arg},
 		{'o', _octal_arg}, {'x', _low_hex_arg},
-		{'X', _low_hex_arg}, {'R', _rot13_arg},
+		{'X', _upper_hex_arg}, {'R', _rot13_arg},
+		{'u', _unsigned_args}, {'r', _reverse_arg},
 		{0, NULL}
 	};
 	if (!format)
@@ -73,4 +74,52 @@ int _printf(const char *format, ...)
 	}
 	va_end(ap);
 	return (count);
+}
+
+/**
+ * _abs - Entry point
+ *
+ * @num: holding the int value to be converted into an absolute value
+ *
+ * Return: void just returns the absolute value of the param passed
+ */
+unsigned long int _abs(long int num)
+{
+	if (num < 0)
+	{
+		num *= -1;
+	}
+	return (num);
+}
+
+/**
+ * _reverse_arg - simple function that reverses a string
+ * @ap: pointer to a list of indefinite number of arguments
+ * Return: number of bytes written
+ */
+int _reverse_arg(va_list *ap)
+{
+	char *str, *retrive;
+	int len = 0, i = 0, result;
+
+	retrive = va_arg(*ap, char *);
+	if (!retrive)
+		return (0);
+
+	len = _strlen(retrive);
+	str = malloc(sizeof(char) * len + 1);
+	if (!str)
+	{
+		_puts("Memory allocation failed");
+		return (0);
+	}
+	while (i < len)
+	{
+		str[i] = retrive[len - i - 1];
+		i++;
+	}
+	str[i] = '\0';
+	result = write_buffer(str);
+	free(str);
+	return (result);
 }

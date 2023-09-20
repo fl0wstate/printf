@@ -1,15 +1,17 @@
 #include "main.h"
+#include <limits.h>
+#include <stdlib.h>
+#include <unistd.h>
 
 /**
- * get_converters_val - return the value of converters
+ * get_val_ULINT - return the value of converters
  * @n: integers
  * Return: len of the integers
  */
-unsigned long int get_converters_val(long int n)
+unsigned long int get_val_ULINT(unsigned long int n)
 {
 	char *buf;
-	long int len = 0, i = 0;
-	long int rev = 0;
+	long int len = 0, i = 0, rev = 0;
 
 	if (n == 0)
 	{
@@ -37,17 +39,54 @@ unsigned long int get_converters_val(long int n)
 }
 
 /**
+ * get_val_UINT - return the value of converters
+ * @n: integers
+ * Return: len of the integers
+ */
+unsigned int get_val_UINT(unsigned int n)
+{
+	char *buf;
+	int len = 0, i = 0, rev = 0;
+
+	if (n == 0)
+	{
+		write(1, "0", 1);
+		return (-1);
+	}
+	buf = malloc(sizeof(char) * (digit_counter(n) + 1));
+	if (!buf)
+	{
+		_puts("Memory allocation failed\n");
+		return (-1);
+	}
+	while (n > 0)
+	{
+		buf[i++] = (n % 10) + '0';
+		n /= 10;
+	}
+	for (rev = i - 1; rev >= 0; rev--)
+	{
+		write(STDOUT_FILENO, &buf[rev], 1);
+	}
+	len = i;
+	free(buf);
+	return (len);
+}
+/**
  * write_buffer - prints out the value of a string
  * @s: pointer to a string of chars
  * Return: len of the string
  */
 
-unsigned long int write_buffer(char *s)
+int write_buffer(char *s)
 {
-	unsigned long int i = 0;
+	unsigned int i = 0;
 
 	if (!s)
+	{
+		write(1, "0", 1);
 		return (0);
+	}
 	while (s[i])
 	{
 		write(STDOUT_FILENO, &s[i], 1);
@@ -57,20 +96,14 @@ unsigned long int write_buffer(char *s)
 }
 
 /**
- * _isupper - checking which characters are in lowercase and returns 1
- * @hex: int data type for storing the chars
- * @index: position of each pointer
+ * _isUINT - checking which characters are in lowercase and returns 1
+ * @num: num passed
  * Return: 1 if true otherwise 0 if false
  */
 
-void _isupper(char *hex, int index)
+bool _isUINT(unsigned long int num)
 {
-	if (!hex[index])
-		return;
-	else if (hex[index] >= 'a' && hex[index] <= 'z')
-	{
-		hex[index] -= 32;
-	}
+	return (num <= (unsigned long int)UINT_MAX);
 }
 
 /**
@@ -90,3 +123,4 @@ char *creat_heap_mem(int num)
 	}
 	return (s);
 }
+

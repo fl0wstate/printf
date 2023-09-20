@@ -1,5 +1,6 @@
 #include "main.h"
 #include <stdarg.h>
+#include <stdlib.h>
 #include <unistd.h>
 
 /**
@@ -10,11 +11,12 @@
 
 int _low_hex_arg(va_list *ap)
 {
-	unsigned long int rem = 0, i = 0, j, decimal = 0;
-	char temp;
-	char *hex;
+	unsigned long int decimal, rem = 0;
+	int i = 0, j;
+	char *hex, temp;
 
-	decimal = va_arg(*ap, unsigned int);
+	decimal = va_arg(*ap, unsigned long int);
+
 	if (decimal == 0)
 		return (write(STDOUT_FILENO, "0", 1));
 
@@ -38,7 +40,7 @@ int _low_hex_arg(va_list *ap)
 	hex[i] = '\0';
 	i = write_buffer(hex);
 	free(hex);
-	return ((unsigned long int)i);
+	return (i);
 }
 
 /**
@@ -49,14 +51,15 @@ int _low_hex_arg(va_list *ap)
 
 int _upper_hex_arg(va_list *ap)
 {
-	unsigned long int rem = 0, i = 0, j, decimal = 0;
-	char temp;
-	char *hex;
+	unsigned long int decimal, rem = 0;
+	int i = 0, j;
+	char *hex, temp;
 
 	decimal = va_arg(*ap, unsigned long int);
 
 	if (decimal == 0)
 		return (write(STDOUT_FILENO, "0", 1));
+
 	hex = creat_heap_mem(digit_counter(decimal));
 	while (decimal > 0)
 	{
@@ -77,7 +80,7 @@ int _upper_hex_arg(va_list *ap)
 	hex[i] = '\0';
 	i = write_buffer(hex);
 	free(hex);
-	return ((unsigned long int)i);
+	return (i);
 }
 
 /**
@@ -95,6 +98,7 @@ int _octal_arg(va_list *ap)
 
 	if (digit == 0)
 		return (write(STDOUT_FILENO, "0", 1));
+
 	while (digit > 0)
 	{
 		rem = digit % 8;
@@ -113,19 +117,42 @@ int _octal_arg(va_list *ap)
 
 int _binary_arg(va_list *ap)
 {
-	long int pos = 1, bin = 0, rem = 0, num = 0;
 
-	num = va_arg(*ap, long int);
+	long int num = va_arg(*ap, long int), temp = 0;
+	char *binary;
+	int len = 0, i = 0, n_bytes = 0;
+	bool is_negative = false;
+
 	if (num == 0)
-		return (write(STDOUT_FILENO, "0", 1));
+		return (write(1, "0", 1));
+	if (num < 0)
+	{
+		num = -num;
+		is_negative = true;
+	}
+	temp = num;
+	while (temp > 0)
+	{
+		temp /= 2;
+		len++;
+	}
+	binary = create_special_heap(len, is_negative);
 	while (num > 0)
 	{
-		rem = num % 2;
+		binary[i++] = num % 2 + '0';
 		num /= 2;
-		bin += (rem * pos);
-		pos *= 10;
 	}
-	return (get_converters_val(bin));
+	if (is_negative)
+		binary[i++] = '1';
+	binary[i] = '\0';
+	while (i > 0)
+	{
+		i--;
+		write(STDOUT_FILENO, &binary[i], 1);
+		n_bytes++;
+	}
+	free(binary);
+	return (n_bytes);
 }
 
 /**
@@ -136,24 +163,40 @@ int _binary_arg(va_list *ap)
 
 int _rot13_arg(va_list *ap)
 {
-	char *s = va_arg(*ap, char *);
-	unsigned long int i = 0, m = 0;
-	char c; /* store chars found in the string */
+	char *s = va_arg(*ap, char *), c, *temp;
+	unsigned int i = 0, len = 0;
 
 	if (!s)
-	{
-		return (write(STDOUT_FILENO, "(null)", 1));
-	}
+		return (write(1, "(null)", 1));
+
+	len = _strlen(s);
+	temp = creat_heap_mem(len);
+
 	while (s[i] != '\0')
 	{
 		c = s[i];
-		m = s[i] / 32; /* transforms char to int */
-		if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
+		if ((c >= 'A' && c <= 'Z'))
 		{
-			s[i] = ((m * 32) + 1) + ((s[i] - ((m * 32) + 1) + 13) % 26);
+			if (c >= 'A' && c <= 'M')
+			{
+				temp[i] = c + 13;
+			}
+			else
+				temp[i] = c - 13;
 		}
+		else if ((c >= 'a' && c <= 'z'))
+		{
+			if (c >= 'a' && c <= 'm')
+				temp[i] = c + 13;
+			else
+				temp[i] = c - 13;
+		}
+		else
+			temp[i] = c;
 		i++;
 	}
-	i = write_buffer(s);
+	temp[i] = '\0';
+	i = write_buffer(temp);
+	free(temp);
 	return (i);
 }
