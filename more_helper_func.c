@@ -52,7 +52,7 @@ char *create_special_heap(int num, bool sign)
 	if (!s)
 	{
 		_puts("Memory allocation failed");
-		return (0);
+		return (NULL);
 	}
 	return (s);
 }
@@ -102,7 +102,7 @@ int _strlen(char *s)
 {
 	int len = 0;
 
-	while (s[len])
+	while (s[len] && s)
 		len++;
 	return (len);
 }

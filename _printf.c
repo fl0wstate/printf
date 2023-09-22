@@ -18,7 +18,8 @@ int _printf(const char *format, ...)
 		{'o', _octal_arg}, {'x', _low_hex_arg},
 		{'X', _upper_hex_arg}, {'R', _rot13_arg},
 		{'u', _unsigned_args}, {'r', _reverse_arg},
-		{'p', _pointer_hex_arg}, {0, NULL}
+		{'p', _pointer_hex_arg}, {'S', _no_printable_arg},
+		{0, NULL}
 	};
 	if (!format)
 		return (-1);

@@ -11,7 +11,7 @@
 unsigned long int get_val_ULINT(unsigned long int n)
 {
 	char *buf;
-	unsigned long int len = 0, i = 0, rev = 0;
+	long int len = 0, i = 0, rev = 0;
 
 	if (n == 0)
 	{
@@ -29,7 +29,7 @@ unsigned long int get_val_ULINT(unsigned long int n)
 		buf[i++] = (n % 10) + '0';
 		n /= 10;
 	}
-	for (rev = i - 1; rev > 0; rev--)
+	for (rev = i - 1; rev >= 0; rev--)
 	{
 		write(STDOUT_FILENO, &buf[rev], 1);
 	}
@@ -46,7 +46,7 @@ unsigned long int get_val_ULINT(unsigned long int n)
 unsigned int get_val_UINT(unsigned int n)
 {
 	char *buf;
-	unsigned int len = 0, i = 0, rev = 0;
+	int len = 0, i = 0, rev = 0;
 
 	if (n == 0)
 	{
@@ -64,7 +64,7 @@ unsigned int get_val_UINT(unsigned int n)
 		buf[i++] = (n % 10) + '0';
 		n /= 10;
 	}
-	for (rev = i - 1; rev > 0; rev--)
+	for (rev = i - 1; rev >= 0; rev--)
 	{
 		write(STDOUT_FILENO, &buf[rev], 1);
 	}
@@ -108,7 +108,7 @@ char *creat_heap_mem(unsigned long int num)
 	if (!s)
 	{
 		_puts("Memory allocation failed");
-		return (0);
+		return (NULL);
 	}
 	return (s);
 }
@@ -123,4 +123,5 @@ bool _isUINT(unsigned long int num)
 {
 	return (num <= (unsigned long int)UINT_MAX);
 }
+
 
