@@ -1,0 +1,83 @@
+.TH VCMANPAGE 1 vcmanpage\-0.1
+.SH NAME
+vcmanpage \- Hello world welcome to our personal peer project of creating a replica of the printf function in c.
+.SH SYNOPSIS
+.B vcmanpage
+.RB [ \-b
+.IR  binary ]
+.RB [ \-d
+.IR digits ]
+.RB [ \-i
+.IR integers ]
+.RB [ \-u
+.IR unsigned integers ]
+.RB [ \-o
+.IR octal ]
+.RB [ \-x
+.IR hexidecimal ]
+.RB [ \-X
+.IR hexidecimal_uppercase ]
+.RB [ \-s
+.IR strings ]
+.RB [ \-l
+.IR long integers ]
+.RB [ \-R
+.IR  rot13 ]
+.RB [ \-r
+.IR reverse_string ]
+.RB [ \-S
+.IR non-printable ]
+.BR vcmanpage ".."
+.SH DESCRIPTION
+.B vcmanpage
+It is a working repository aimed at creation of a replica of the printf function in c programming.
+The format string is a character string which contains specifiers and flags.
+_printf parses the format string and replaces specifiers with variadic arguments.
+.SH OPTIONS
+.IP 
+.B \-b 
+vcmanpage converts integers to binary
+.IP
+.B \-d
+defines macros during compilation
+.IP
+.B \-i
+Used as a signal to let the program that a certain condition has been met
+.IP
+.B \-u
+Used to specify the unsigned integer types in functions
+.IP
+.B \-o
+Eliminates function call overhead and reduces loop iterations
+.IP
+.B \-x
+prints hexidecimal values
+.IP
+.B \-X
+prints hexidecimal values in uppercase
+.IP
+.B \-s
+indicating a condition to be either true or false
+.IP
+.B \-l
+specifies additional directories where librariesare located
+.IP
+.B \-r
+returns the reverse order of the passed string
+.IP
+.B \-R
+performs the rot13 cryptographic method in the passed string
+.IP
+.B \-S
+prints non-printable characters
+.SH RETURN VALUE
+_printf utility returns the number of bytes written on success, and -1 on failure.
+.SH SEE ALSO
+.I 
+builtin(1), echo(1), sh(1), printf(3)
+.SH BUGS
+No known bugs, does not implement all qualities of stdio printf, however.
+.SH AUTHORS
+.B Cyrus & Victor
+.SH COPYRIGHT
+.B VC Printf copyright, Just Code!

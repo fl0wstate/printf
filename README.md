@@ -1,5 +1,6 @@
 ## Printf Project
 Hello world welcome to our personal peer project of creating a replica of the printf function in c.
+Project for Peers Cyrus & Victor which facilitates creation of a replica of printf function in c.  
 
 Here will be focusing more on the use of the following function.
 1. write (man 2 write)
