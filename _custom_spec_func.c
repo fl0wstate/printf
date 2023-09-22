@@ -27,7 +27,6 @@ int _no_printable_arg(va_list *ap)
 			len++;/* add space for the printable */
 		i++;
 	}
-	printf("%d\n", len);
 	i = 0;
 	data = creat_heap_mem(len);
 	if (!fill_no_printable_buff(len, data, str))
