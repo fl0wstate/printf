@@ -6,7 +6,7 @@ Starting point, will be using this prototype as our starting point.<br>
 
 # Run the program 👣
 * Below are some of the functionality and use cases of our custom `_printf()`
-All right lets dive in and have fun while at it.
+All right lets dive in and have fun while at it..
 * Have included a `run.sh` file on the repo under the test folder to run the program and also use the `_printf` functionality.
 * For Window users you will have to use the following command to compile the code to have an executable file.
        ```
